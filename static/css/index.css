@@ -204,3 +204,99 @@ body {
     max-height: 800px; /* You can adjust this value as per your design */
     overflow-y: auto;
 }
+
+.video-caption {
+    font-size: 28px !important;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-top: 12px;
+    text-align: center;
+}
+
+.rollout-video-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 28px;
+    margin: 0 auto 34px;
+    width: 100%;
+}
+
+.rollout-video-item {
+    text-align: center;
+}
+
+.rollout-video-grid.is-four .rollout-video-item {
+    flex: 0 1 calc(25% - 24px);
+    max-width: calc(25% - 24px);
+    width: calc(25% - 24px);
+}
+
+.rollout-video-grid.is-two {
+    gap: 80px;
+}
+
+.rollout-video-grid.is-two .rollout-video-item {
+    flex: 0 1 340px;
+    max-width: 340px;
+    width: 32%;
+    text-align: center;
+}
+
+.rollout-video-item video {
+    display: block;
+    width: 100% !important;
+}
+
+.result-figure-grid {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 36px;
+    margin: 18px auto 24px;
+    width: 100%;
+}
+
+.result-figure-item {
+    flex: 1 1 0;
+    max-width: 48%;
+    text-align: center;
+}
+
+.result-figure-item img {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.result-figure-caption {
+    font-size: 22px;
+    line-height: 1.25;
+    margin-top: 10px;
+    text-align: center;
+}
+
+@media screen and (max-width: 640px) {
+    .rollout-video-grid {
+        flex-direction: column;
+        gap: 28px;
+        align-items: center;
+    }
+
+    .rollout-video-grid.is-four .rollout-video-item,
+    .rollout-video-grid.is-two .rollout-video-item {
+        width: 100%;
+        max-width: 340px;
+    }
+
+    .result-figure-grid {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .result-figure-item {
+        max-width: 100%;
+    }
+}

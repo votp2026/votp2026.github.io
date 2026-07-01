@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ERL-VLM</title>
+    <title>VOTP</title>
     <!-- <style>
       .hover-trigger {
           position: relative;
@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
     <link rel="stylesheet" href="./static/css/academicons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-    <link rel="stylesheet" href="./static/css/index.css">
+    <link rel="stylesheet" href="./static/css/index.css?v=20260701-rollouts-six">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script defer src="./static/js/fontawesome.all.min.js"></script>
@@ -61,35 +61,27 @@
             <div class="columns is-centered">
                 <div class="column has-text-centered">
                     <h1 class="title is-1 publication-title">
-                        Enhancing Rating-Based Reinforcement Learning to Effectively Leverage Feedback from Large Vision-Language Models
+                        Video-Based Optimal Transport for Feedback-Efficient Offline Preference-Based Reinforcement Learning
                     </h1>
                     <div class="is-size-4 publication-authors">
                         <span class="author-block">
                             <a target="_blank" href="https://tungluu94.github.io/">Tung M. Luu</a>,
-                            <a target="_blank" href="https://sanctusfactory.com/family_02.php#:~:text=Machine%20Learning-,YoungHwan%20Lee,-%E2%97%8B%20Email%20Address">Younghwan Lee</a>,
-                            <a target="_blank" href="https://sanctusfactory.com/family_02.php#:~:text=Speech%20Processing-,Donghoon%20Lee,-%E2%97%8B%20Email%20Address">Donghoon Lee</a>,
-                            <a target="_blank" href="https://sites.google.com/view/kaist-roboticslab/members?authuser=0#:~:text=Han%20%5BCV%5D-,Sunho%20Kim,-%5BCV%5D">Sunho Kim</a>,
-                            <br>
-                            <a target="_blank" href="https://ee.kaist.ac.kr/en/professor/17499/">Min Jun Kim</a>,
+                            <a target="_blank" href="https://openreview.net/profile?id=%7EHwanhee_Kim2">Hwanhee Kim</a>,
+                            <a target="_blank" href="https://scholar.google.com/citations?user=e61HtZUAAAAJ&hl=en">Younghwan Lee</a>,
                             <a target="_blank" href="https://sanctusfactory.com/family.php">Chang D. Yoo</a>
                         </span>
                     </div>
                     <div class="is-size-4 publication-authors">
                         <span class="author-block">Korea Advanced Institute of Science and Technology (KAIST)</span>
                     </div>
-<!--                    <div class="is-size-6 publication-authors">-->
-<!--                        <span class="author-block"><sup>*~</sup>Equal Contribution </span>-->
-<!--                        <span class="author-block"><sup>&dagger;</sup>Equal Advising </span>-->
-<!--                    </div>-->
                     <br>
                     <h3 class="title is-3 conference-authors">
-                        <a target="_blank" href="https://icml.cc/">ICML 2025</a>
+                        <a target="_blank" href="https://icml.cc/">ICML 2026 (Oral) </a>
                     </h3>
                     <div class="column has-text-centered">
                         <div class="publication-links">
-                            <!-- TODO REPLACE ALL LINKS -->
                             <span class="link-block">
-                                <a target="_blank" href="https://www.arxiv.org/abs/2506.12822"
+                                <a target="_blank" href="https://arxiv.org/abs/2606.16856v1"
                                    class="external-link button is-normal is-rounded is-dark">
                                     <span class="icon">
                                         <i class="ai ai-arxiv"></i>
@@ -98,14 +90,14 @@
                                 </a>
                             </span>
                             <span class="link-block">
-                                <a target="_blank" href="https://openreview.net/forum?id=k77bq8AJVy"
+                                <a target="_blank" href="https://openreview.net/forum?id=G8LVO5easu"
                                    class="external-link button is-normal is-rounded is-dark">
                                         <span class="icon"><i class="fas fa-file-alt"></i></span>
                                     <span>OpenReview</span>
                                 </a>
                             </span>
                             <span class="link-block">
-                                <a target="_blank" href="https://github.com/tunglm2203/erlvlm"
+                                <a target="_blank" href="https://github.com/tunglm2203/votp"
                                    class="external-link button is-normal is-rounded is-dark">
                                     <span class="icon">
                                         <i class="fab fa-github"></i>
@@ -139,19 +131,18 @@
             <div class="column">
                 <h2 class="title is-2"> Abstract </h2>
                 <div class="content has-text-justified">
-                    <p style="font-size: 125%">
-                        Designing effective reward functions remains a fundamental challenge in
-                        RL, as it often requires extensive human effort and domain expertise.
-                        While RLHF has been successful in aligning agents
-                        with human intent, acquiring high-quality feedback is costly and labor-intensive.
-                        Recent advancements in foundation models (LLMs or VLMs) present a promising
-                        alternative--leveraging AI-generated feedback to reduce reliance on human supervision
-                        in reward learning. Building on this paradigm, we introduce <strong>ERL-VLM</strong>, a
-                        rating-based RL method that effectively learns reward functions from AI feedback.
-                        Unlike prior methods that rely on pairwise comparisons, <strong>ERL-VLM queries large
-                        vision-language models for absolute ratings of individual trajectories, enabling more expressive
-                        feedback and improved sample efficiency</strong>. We also propose key enhancements to
-                        rating-based RL, addressing instability issues caused by data imbalance and noisy labels.
+                    <p style="font-size: 124%">
+                        Conveying complex objectives to reinforcement learning (RL) agents often requires meticulous reward engineering.
+                        Preference-based RL (PbRL) offers a promising alternative by learning reward functions from human feedback,
+                        but its scalability is hindered by high labeling costs. Inspired by advances in Video Foundation Models (ViFMs),
+                        we present <strong>Video-based Optimal Transport Preference (VOTP)</strong>, a semi-supervised framework that learns effective
+                        reward functions from only a handful of labels. By <strong>leveraging optimal transport to align visual trajectories
+                        within the rich representation space of ViFMs</strong>, VOTP effectively generates high-fidelity pseudo-labels for
+                        large amounts of unlabeled data, substantially reducing human supervision. Extensive experiments across
+                        locomotion and manipulation benchmarks demonstrate the superiority of VOTP, which outperforms
+                        state-of-the-art offline PbRL methods under limited feedback budgets. We also showcase the robustness
+                        of VOTP in the presence of visual distractors and validate its utility on real robotic tasks,
+                        where it learns meaningful rewards with minimal human input.
                     </p>
                 </div>
             </div>
@@ -165,24 +156,27 @@
         <div class="rows">
             <div class="rows is-centered ">
                 <div class="row is-full-width">
-                    <h2 class="title is-2"> ERL-VLM Method </h2>
+                    <h2 class="title is-2"> VOTP Method </h2>
                     <div class="content has-text-justified">
                         <p style="font-size: 125%">
-                            ERL-VLM queries large vision language models (VLMs), such as Gemini and ChatGPT, for rating
-                            feedback on individual trajectories in order to learn a reward model.
-                            Compared to preference-based feedback, this approach allows VLMs to provide more expressive
-                            evaluations, reduces ambiguity in queries, and ensures that all samples are fully utilized during reward learning.
+                            <strong>VOTP</strong> is a semi-supervised framework for offline preference-based RL that learns an
+                            effective reward function from only a handful of human preference labels. The key idea is to use
+                            <strong>optimal transport (OT) to align visual trajectories within the rich representation space of
+                            Video Foundation Models (ViFMs)</strong>, turning a small labeled set into high-fidelity supervision
+                            over a large pool of unlabeled trajectories.
                         </p>
                         <br>
-                        <img src="imgs/erl-vlm-overview.png" class="interpolation-image" alt="" style="display: block; margin-left: auto; margin-right: auto; max-width: 80%;"/>
+                        <img src="imgs/votp-overview.png" class="interpolation-image" alt="VOTP method overview" style="display: block; margin-left: auto; margin-right: auto; max-width: 80%;"/>
                         <br>
                         <p style="font-size: 125%">
-                            While training the ERL-VLM agent, we sample a state (a single image) or a trajectory (multiple images)
-                            from the replay buffer and use it together with a task description to query a large VLM for ratings.
-                            The sampled states or trajectories, along with their corresponding ratings, are then stored in the rating dataset.
-                            We use rating-based RL to learn the reward model from this dataset, incorporating
-                            two improvements: (i) stratified sampling and (ii) mean absolute error loss, to address instability caused by <em>data imbalance</em> and <em>noisy labels</em> from VLMs.
-                            The learned reward model is then used to train the agent using off-policy RL algorithms such as SAC or IQL.
+                            <!-- TODO: confirm/adjust the per-step description against the final paper -->
+                            Given a small set of human-labeled trajectory pairs and a large set of unlabeled trajectories,
+                            VOTP embeds each trajectory in the representation space of a pretrained ViFM. It then computes an
+                            <strong>optimal-transport alignment</strong> between unlabeled trajectories and labeled references,
+                            and uses the resulting alignment cost to <strong>generate high-fidelity pseudo-labels</strong> for
+                            the unlabeled data. Training the reward model on both the human labels and these pseudo-labels
+                            substantially reduces the required human supervision. The learned reward is then used to optimize
+                            the policy with an offline RL algorithm.
                         </p>
                     </div>
                 </div>
@@ -200,44 +194,66 @@
                     <h2 class="title is-2"> Results </h2>
                     <div class="content has-text-justified">
                         <p style="font-size: 125%">
-                            In simulated environments, we evaluate ERL-VLM on low-level manipulation control tasks in
-                            MetaWorld and high-level vision-language navigation tasks in ALFRED.
-                            We compare our method against prior approaches that also use pretrained VLMs
-                            to generate rewards based on image observations and text task descriptions.
+                            <!-- TODO: confirm the exact benchmarks/tasks used in the final paper -->
+                            We evaluate VOTP across <strong>locomotion and manipulation</strong> benchmarks under limited
+                            feedback budgets, comparing against state-of-the-art offline preference-based RL methods. We
+                            further study robustness to <strong>visual distractors</strong> and validate VOTP on
+                            <strong>real robotic tasks</strong>.
                         </p>
 
                         <h3 class="title is-3" style="text-align: left;"> Comparison to Baselines </h3>
-                        <img src="imgs/comparison_learning_curve.png" class="interpolation-image" alt="" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%;"/>
-                        <p>
-                            <strong>Note</strong>: In MetaWorld, the environment reward is dense, while in ALFRED, the environment reward is sparse.
-                        </p>
+                        <!-- Table 2 figure -->
+                        <img src="imgs/comparison_to_baselines.png" class="interpolation-image" alt="Comparison to baselines" style="display: block; margin-left: auto; margin-right: auto; max-width: 50%;"/>
                         <p style="font-size: 125%">
-                            ERL-VLM outperforms all baselines in 6 out of 7 tasks across two domains.
-                            In ALFRED, for the PickupObject and PutObject tasks, ERL-VLM even surpasses the sparse
-                            reward function provided by the environment. This indicates that learning a reward function
-                            from absolute ratings not only delivers valuable learning signals, akin to sparse rewards,
-                            but also provides additional shaping signals that highlight key states essential for task completion.
+                            We compare VOTP with state-of-the-art offline preference-based RL baselines across locomotion
+                            and manipulation tasks. The results show that VOTP achieves stronger policy performance under
+                            limited human feedback by expanding sparse preference labels into reliable pseudo-supervision.
                         </p>
 
-                        <h3 class="title is-3" style="text-align: left;"> Visualization of the Learned Reward </h3>
+                        <h3 class="title is-3" style="text-align: left;"> Effect of OT to infer pseudo-labels </h3>
+                        <!-- Figure 2 -->
+                        <img src="imgs/ablation_effect_ot.png" class="interpolation-image" alt="Effect of OT to infer pseudo-labels" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%;"/>
                         <p style="font-size: 125%">
-                            We provide visualizations of the reward outputs from ERL-VLM, RL-VLM-F, and CLIP along
-                            expert trajectories across three MetaWorld tasks and four ALFRED tasks. The learned rewards
-                            are averaged over three runs, with shaded regions indicating standard deviation. Images are
-                            rendered at corresponding timesteps from the expert trajectories.
+                            This analysis isolates the contribution of optimal transport in pseudo-label inference. By
+                            aligning trajectories in the video representation space, OT provides more informative labels
+                            for unlabeled trajectory pairs and improves reward learning quality.
                         </p>
-                        <p style="font-size: 21px; margin-bottom: 10px;"><strong> MetaWorld </strong> </p>
-                        <img src="imgs/reward_output_metaworld.png" class="interpolation-image" alt="" style="display: block; margin-left: auto; margin-right: auto; max-width: 90%;"/>
-                        <br>
-                        <p style="font-size: 21px; margin-bottom: 10px;"><strong> ALFRED </strong> </p>
-                        <img src="imgs/reward_output_alfred.png" class="interpolation-image" alt="" style="display: block; margin-left: auto; margin-right: auto; max-width: 90%;"/>
-                        <br>
+
+                        <h3 class="title is-3" style="text-align: left;"> Comparison with various trajectory encoders </h3>
+                        <!-- Figure 3 -->
+                        <img src="imgs/comparison_vifm.png" class="interpolation-image" alt="Comparison with various trajectory encoders" style="display: block; margin-left: auto; margin-right: auto; max-width: 50%;"/>
                         <p style="font-size: 125%">
-                            In MetaWorld tasks, CLIP rewards are generally noisy and poorly aligned with task progress.
-                            While both ERL-VLM and RL-VLM-F exhibit increasing reward trends along expert trajectories,
-                            ERL-VLM aligns more closely with the ground-truth task progress and shows significantly less
-                            noise compared to RL-VLM-F. In ALFRED, ERL-VLM produces smoother and more consistent reward
-                            signals along expert trajectories than the other methods.
+                            We evaluate how different trajectory encoders affect preference propagation and downstream
+                            policy learning. Strong video representations help VOTP capture task progress more robustly
+                            than encoders that are less aligned with temporal visual behavior.
+                        </p>
+
+                        <h3 class="title is-3" style="text-align: left;"> Comparison along the Preference Feedback Number </h3>
+                        <!-- Figure 4 -->
+                        <img src="imgs/comparison_feedback_number.png" class="interpolation-image" alt="Comparison along the preference feedback number" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%;"/>
+                        <p style="font-size: 125%">
+                            We study performance as the number of human preference labels changes. VOTP is designed for
+                            feedback efficiency, and the comparison highlights its ability to maintain strong performance
+                            even when only a small number of labeled trajectory pairs is available.
+                        </p>
+
+                        <h3 class="title is-3" style="text-align: left;"> Pearson correlation between learned rewards and GT rewards </h3>
+                        <!-- Figure 6, 17 -->
+                        <img src="imgs/comparison_correlation_1.png" class="interpolation-image" alt="Pearson correlation between learned rewards and GT rewards (1)" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%;"/>
+                        <img src="imgs/comparison_correlation_2.png" class="interpolation-image" alt="Pearson correlation between learned rewards and GT rewards (2)" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%;"/>
+                        <p style="font-size: 125%">
+                            We measure the Pearson correlation between learned rewards and ground-truth rewards to assess
+                            whether the reward model captures true task progress. Higher correlation indicates that VOTP
+                            learns reward signals that better reflect the underlying objective.
+                        </p>
+
+                        <h3 class="title is-3" style="text-align: left;"> Visualization of learned reward </h3>
+                        <!-- Figure 14 -->
+                        <img src="imgs/learned_reward.png" class="interpolation-image" alt="Visualization of learned reward" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%;"/>
+                        <p style="font-size: 125%">
+                            We visualize the learned reward along representative trajectories. The reward profiles show
+                            whether the model assigns increasing or meaningful reward as the agent completes task-relevant
+                            behaviors.
                         </p>
                     </div>
                 </div>
@@ -253,148 +269,68 @@
         <div class="rows">
             <div class="rows is-centered ">
                 <div class="row is-full-width">
-                    <h2 class="title is-2"><span class="dvima">Prompts and Rollouts</span></h2>
+                    <h2 class="title is-2"><span class="dvima">Qualitative Rollouts</span></h2>
                     <div class="content has-text-justified">
                         <p style="font-size: 125%">
-                            The rollouts from our method and the baselines in the MetaWorld and ALFRED domains are shown
-                            below. For each task, we provide a text description of the task goal used by ERL-VLM.
-                            This description is combined with a predefined prompt template to form the complete input
-                            used to query the VLM for ratings.
+                            Below we show policies trained with the reward function learned by VOTP across simulated
+                            manipulation tasks and real-world robotic demonstrations.
                         </p>
 
-                        <h3 class="title is-3"> MetaWorld </h3>
-                        <img src="imgs/prompt_template_metaworld.png" class="interpolation-image" alt="" style="display: block; margin-left: auto; margin-right: auto; max-width: 80%">
-                        <br>
-                        <div style="margin-bottom: 20px;">
-                            <!-- Subsection for Sweep Into -->
-                            <p style="font-size: 21px; margin-bottom: 10px;"><strong> Sweep Into </strong> </p>
-                            <div>
-                                <pre class="p-1 scrollable"><code class="language-markdown" id="answer-1">Task description: "place the green cube so that it lies on the square hole"</code></pre>
+                        <h3 class="title is-3"> Manipulation </h3>
+                        <div class="rollout-video-grid is-four">
+                            <div class="rollout-video-item">
+                                <video autoplay muted loop controls style="width: 100%; border-radius: 5px;">
+                                    <source src="videos/mw-door-open.mp4" type="video/mp4">
+                                </video>
+                                <p class="video-caption">Door Open</p>
                             </div>
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-                                <div style="text-align: center; width: 100%;">
-                                    <video autoplay muted loop controls width="100%" style="border-radius: 5px;">
-                                        <source src="videos/mw-sweep-into.mp4" type="video/mp4">
-                                    </video>
-                                </div>
+                            <div class="rollout-video-item">
+                                <video autoplay muted loop controls style="width: 100%; border-radius: 5px;">
+                                    <source src="videos/mw-door-open.mp4" type="video/mp4">
+                                </video>
+                                <p class="video-caption">Drawer Open</p>
                             </div>
+                            <div class="rollout-video-item">
+                                <video autoplay muted loop controls style="width: 100%; border-radius: 5px;">
+                                    <source src="videos/mw-door-open.mp4" type="video/mp4">
+                                </video>
+                                <p class="video-caption">Plate Slide</p>
+                            </div>
+                            <div class="rollout-video-item">
+                                <video autoplay muted loop controls style="width: 100%; border-radius: 5px;">
+                                    <source src="videos/mw-door-open.mp4" type="video/mp4">
+                                </video>
+                                <p class="video-caption">Sweep Into</p>
+                            </div>
+                        </div>
 
-                            <!-- Subsection for Drawer Open-->
-                            <p style="font-size: 21px; margin-bottom: 10px;"><strong> Drawer Open </strong> </p>
-                            <div>
-                                <pre class="p-1 scrollable"><code class="language-markdown" id="answer-2">Task description: "open the drawer"</code></pre>
+                        <h3 class="title is-3"> Locomotion </h3>
+                        <div class="rollout-video-grid is-two">
+                            <div class="rollout-video-item">
+                                <video autoplay muted loop controls style="width: 100%; border-radius: 5px;">
+                                    <source src="videos/mw-door-open.mp4" type="video/mp4">
+                                </video>
+                                <p class="video-caption">Hop</p>
                             </div>
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-                                <div style="text-align: center; width: 100%;">
-                                    <video autoplay muted loop controls width="100%" style="border-radius: 5px;">
-                                        <source src="videos/mw-drawer-open.mp4" type="video/mp4">
-                                    </video>
-                                </div>
+                            <div class="rollout-video-item">
+                                <video autoplay muted loop controls style="width: 100%; border-radius: 5px;">
+                                    <source src="videos/mw-door-open.mp4" type="video/mp4">
+                                </video>
+                                <p class="video-caption">Walker</p>
                             </div>
-
-                            <!-- Subsection for Soccer -->
-                            <p style="font-size: 21px; margin-bottom: 10px;"><strong> Soccer </strong> </p>
-                            <div>
-                                <pre class="p-1 scrollable"><code class="language-markdown" id="answer-3">Task description: "place the soccer ball so that it lies inside the goal"</code></pre>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-                                <div style="text-align: center; width: 100%;">
-                                    <video autoplay muted loop controls width="100%" style="border-radius: 5px;">
-                                        <source src="videos/mw-soccer.mp4" type="video/mp4">
-                                    </video>
-                                </div>
-                            </div>
-                         </div>
-
-                        <h3 class="title is-3"> ALFRED </h3>
-                        <img src="imgs/prompt_template_alfred.png" class="interpolation-image" alt="" style="display: block; margin-left: auto; margin-right: auto; max-width: 80%">
-                        <br>
-                        <div style="margin-bottom: 20px;">
-                            <!-- Subsection for PickupObject -->
-                            <p style="font-size: 21px; margin-bottom: 10px;"><strong> PickupObject </strong> </p>
-                            <div>
-                                <pre class="p-1 scrollable"><code class="language-markdown" id="answer-4">Task description: "Pick up the mug in the coffee maker"</code></pre>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-                                <div style="text-align: center; width: 100%;">
-                                    <video autoplay muted loop controls width="100%" style="border-radius: 5px;">
-                                        <source src="videos/alfred-pickup-1.mp4" type="video/mp4">
-                                    </video>
-                                </div>
-                            </div>
-                            <br>
-                            <div>
-                                <pre class="p-1 scrollable"><code class="language-markdown" id="answer-5">Task description: "Pick up the white coffee cup to the right of the trophy"</code></pre>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-                                <div style="text-align: center; width: 100%;">
-                                    <video autoplay muted loop controls width="100%" style="border-radius: 5px;">
-                                        <source src="videos/alfred-pickup-2.mp4" type="video/mp4">
-                                    </video>
-                                </div>
-                            </div>
-                            <br>
-
-                            <!-- Subsection for PutObject -->
-                            <h2 style="font-size: 21px; margin-bottom: 10px;"><strong> PutObject </strong> </h2>
-                            <div>
-                                <pre class="p-1 scrollable"><code class="language-markdown" id="answer-6">Task description: "Put the knife in the green cup in the sink"</code></pre>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-                                <div style="text-align: center; width: 100%;"> <!-- Adjust width for resizing GIFs -->
-                                    <video autoplay muted loop controls width="100%" style="border-radius: 5px;">
-                                        <source src="videos/alfred-put-1.mp4" type="video/mp4">
-                                    </video>
-                                </div>
-                            </div>
-                            <br>
-
-                            <!-- Subsection for CoolObject -->
-                            <p style="font-size: 21px; margin-bottom: 10px;"><strong> CoolObject </strong> </p>
-                            <div>
-                                <pre class="p-1 scrollable"><code class="language-markdown" id="answer-7">Task description: "Open the fridge, put the cup in the fridge, close the fridge, wait, open the fridge, pick the cup, close the fridge"</code></pre>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-                                <div style="text-align: center; width: 100%;"> <!-- Adjust width for resizing GIFs -->
-                                    <video autoplay muted loop controls width="100%" style="border-radius: 5px;">
-                                        <source src="videos/alfred-cool-1.mp4" type="video/mp4">
-                                    </video>
-                                </div>
-                            </div>
-                            <br>
-
-                            <!-- Subsection for CleanObject -->
-                            <p style="font-size: 21px; margin-bottom: 10px;"><strong> CleanObject </strong> </p>
-                            <div>
-                                <pre class="p-1 scrollable"><code class="language-markdown" id="answer-8">Task description: "Put the coffee cup in the sink, turn on the water, turn off the water and pick up the coffee cup"</code></pre>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-                                <div style="text-align: center; width: 100%;"> <!-- Adjust width for resizing GIFs -->
-                                    <video autoplay muted loop controls width="100%" style="border-radius: 5px;">
-                                        <source src="videos/alfred-clean-1.mp4" type="video/mp4">
-                                    </video>
-                                </div>
-                            </div>
-                            <strong>Note</strong>: Since RL-VLM-F fails to complete the PickupObject tasks, it does not progress to subsequent tasks (PutObject, CoolObject, and CleanObject). Therefore, rollouts from RL-VLM-F in these tasks are not shown.</h2>
                         </div>
 
                         <h3 class="title is-3"> Real Robotic Demo </h3>
-                        <div class="columns is-centered">
-                            <div class="column has-text-centered">
-                                <video autoplay controls style="width: 100%; border-radius: 5px;">
-                                    <source src="videos/sweep_bowl.mp4" type="video/mp4">
-                                </video>
-                                <p class="video-caption">Sweep Bowl</p>
-                            </div>
-                            <div class="column has-text-centered">
-                                <video autoplay controls style="width: 100%; border-radius: 5px;">
-                                    <source src="videos/pickup_banana.mp4" type="video/mp4">
+                        <div class="rollout-video-grid is-two">
+                            <div class="rollout-video-item">
+                                <video autoplay muted loop controls style="width: 100%; border-radius: 5px;">
+                                    <source src="videos/pickup-banana.mp4" type="video/mp4">
                                 </video>
                                 <p class="video-caption">Pickup Banana</p>
                             </div>
-                            <div class="column has-text-centered">
-                                <video autoplay controls style="width: 100%; border-radius: 5px;">
-                                    <source src="videos/open_drawer.mp4" type="video/mp4">
+                            <div class="rollout-video-item">
+                                <video autoplay muted loop controls style="width: 100%; border-radius: 5px;">
+                                    <source src="videos/open-drawer.mp4" type="video/mp4">
                                 </video>
                                 <p class="video-caption">Drawer Open</p>
                             </div>
@@ -412,12 +348,12 @@
     <div class="container is-max-widescreen content">
         <h2 class="title">BibTeX</h2>
     <pre>@inproceedings{
-    luu2025enhancing,
-    title={Enhancing Rating-Based Reinforcement Learning to Effectively Leverage Feedback from Large Vision-Language Models},
-    author={Tung Minh Luu and Younghwan Lee and Donghoon Lee and Sunho Kim and Min Jun Kim and Chang D. Yoo},
-    booktitle={Forty-second International Conference on Machine Learning},
-    year={2025},
-    url={https://openreview.net/forum?id=k77bq8AJVy}
+    luu2026video,
+    title={Video-Based Optimal Transport for Feedback-Efficient Offline Preference-Based Reinforcement Learning},
+    author={Tung M. Luu and Hwanhee Kim and Chang D. Yoo},
+    booktitle={Forty-third International Conference on Machine Learning},
+    year={2026},
+    url={https://openreview.net/forum?id=G8LVO5easu}
 }
         </pre>
     </div>
@@ -430,8 +366,7 @@
                     <div class="content has-text-centered">
                         <p>
                             Website template borrowed from <a
-                            href="https://github.com/nerfies/nerfies.github.io">NeRFies</a> and <a
-                            href="https://rlvlmf2024.github.io/">RL-VLM-F</a>.
+                            href="https://github.com/nerfies/nerfies.github.io">NeRFies</a>.
                         </p>
                     </div>
                 </div>
