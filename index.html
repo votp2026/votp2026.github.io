@@ -76,7 +76,7 @@
                     </div>
                     <br>
                     <h3 class="title is-3 conference-authors">
-                        <a target="_blank" href="https://icml.cc/">ICML 2026 (Oral) </a>
+                        <a target="_blank" href="https://icml.cc/">ICML 2026<br><span class="publication-awards" style="font-size: 0.8em;">Oral presentation (top 0.7%)</span></a>
                     </h3>
                     <div class="column has-text-centered">
                         <div class="publication-links">
@@ -117,7 +117,7 @@
 <section class="section" style="padding: 0">
     <div class="container is-max-widescreen">
         <div class="columns is-centered has-text-centered">
-            <video poster="" id="" autoplay muted loop width="100%" style="border-radius: 5px;">
+            <video poster="" id="" autoplay muted loop playsinline width="100%" style="border-radius: 5px;">
                 <source src="videos/teaser.mp4" type="video/mp4">
             </video>
         </div>
@@ -137,8 +137,8 @@
                         but its scalability is hindered by high labeling costs. Inspired by advances in Video Foundation Models (ViFMs),
                         we present <strong>Video-based Optimal Transport Preference (VOTP)</strong>, a semi-supervised framework that learns effective
                         reward functions from only a handful of labels. By <strong>leveraging optimal transport to align visual trajectories
-                        within the rich representation space of ViFMs</strong>, VOTP effectively generates high-fidelity pseudo-labels for
-                        large amounts of unlabeled data, substantially reducing human supervision. Extensive experiments across
+                        within the rich representation space of ViFMs, VOTP effectively generates high-fidelity pseudo-labels for
+                        large amounts of unlabeled data, substantially reducing human supervision</strong>. Extensive experiments across
                         locomotion and manipulation benchmarks demonstrate the superiority of VOTP, which outperforms
                         state-of-the-art offline PbRL methods under limited feedback budgets. We also showcase the robustness
                         of VOTP in the presence of visual distractors and validate its utility on real robotic tasks,
@@ -159,24 +159,23 @@
                     <h2 class="title is-2"> VOTP Method </h2>
                     <div class="content has-text-justified">
                         <p style="font-size: 125%">
-                            <strong>VOTP</strong> is a semi-supervised framework for offline preference-based RL that learns an
+                            VOTP is a semi-supervised framework for offline preference-based RL that learns an
                             effective reward function from only a handful of human preference labels. The key idea is to use
-                            <strong>optimal transport (OT) to align visual trajectories within the rich representation space of
-                            Video Foundation Models (ViFMs)</strong>, turning a small labeled set into high-fidelity supervision
+                            optimal transport (OT) to align visual trajectories within the rich representation space of
+                            Video Foundation Models (ViFMs), turning a small labeled set into high-fidelity supervision
                             over a large pool of unlabeled trajectories.
                         </p>
                         <br>
-                        <img src="imgs/votp-overview.png" class="interpolation-image" alt="VOTP method overview" style="display: block; margin-left: auto; margin-right: auto; max-width: 80%;"/>
+                        <img src="imgs/votp-overview.png" class="interpolation-image" alt="VOTP method overview" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%;"/>
                         <br>
                         <p style="font-size: 125%">
-                            <!-- TODO: confirm/adjust the per-step description against the final paper -->
                             Given a small set of human-labeled trajectory pairs and a large set of unlabeled trajectories,
-                            VOTP embeds each trajectory in the representation space of a pretrained ViFM. It then computes an
-                            <strong>optimal-transport alignment</strong> between unlabeled trajectories and labeled references,
-                            and uses the resulting alignment cost to <strong>generate high-fidelity pseudo-labels</strong> for
-                            the unlabeled data. Training the reward model on both the human labels and these pseudo-labels
-                            substantially reduces the required human supervision. The learned reward is then used to optimize
-                            the policy with an offline RL algorithm.
+                            VOTP first embeds each trajectory into the representation space of a pretrained ViFM (e.g., S3D).
+                            It then computes an optimal transport alignment between unlabeled trajectories and labeled references,
+                            using the resulting transport plan to propagate preferences from labeled to unlabeled pairs through relative alignment strengths.
+                            Training the reward model on both the human labels and these pseudo-labels substantially
+                            reduces the amount of human supervision required. The learned reward is then used to optimize
+                            the policy with an off-the-shelf offline RL algorithm.
                         </p>
                     </div>
                 </div>
@@ -194,66 +193,59 @@
                     <h2 class="title is-2"> Results </h2>
                     <div class="content has-text-justified">
                         <p style="font-size: 125%">
-                            <!-- TODO: confirm the exact benchmarks/tasks used in the final paper -->
-                            We evaluate VOTP across <strong>locomotion and manipulation</strong> benchmarks under limited
-                            feedback budgets, comparing against state-of-the-art offline preference-based RL methods. We
-                            further study robustness to <strong>visual distractors</strong> and validate VOTP on
-                            <strong>real robotic tasks</strong>.
+                            In simulated environments, we evaluate VOTP on Gym D4RL locomotion and MetaWorld manipulation
+                            benchmarks under limited feedback budgets and compare it against state-of-the-art offline
+                            preference-based RL methods. We also evaluate its robustness to visual distractors and
+                            validate it on real-world robotic tasks.
                         </p>
 
                         <h3 class="title is-3" style="text-align: left;"> Comparison to Baselines </h3>
                         <!-- Table 2 figure -->
-                        <img src="imgs/comparison_to_baselines.png" class="interpolation-image" alt="Comparison to baselines" style="display: block; margin-left: auto; margin-right: auto; max-width: 50%;"/>
+                        <img src="imgs/comparison_to_baselines.png" class="interpolation-image" alt="Comparison to baselines" style="display: block; margin-left: auto; margin-right: auto; max-width: 80%;"/>
                         <p style="font-size: 125%">
-                            We compare VOTP with state-of-the-art offline preference-based RL baselines across locomotion
-                            and manipulation tasks. The results show that VOTP achieves stronger policy performance under
-                            limited human feedback by expanding sparse preference labels into reliable pseudo-supervision.
+                            We use IQL as the offline RL algorithm in VOTP. The results show that VOTP achieves strong
+                            policy performance under limited human feedback. Notably, by leveraging unlabeled data, VOTP
+                            improves performance by approximately 60% over P-IQL, which uses the same underlying RL
+                            algorithm but is trained only on labeled data.
                         </p>
 
-                        <h3 class="title is-3" style="text-align: left;"> Effect of OT to infer pseudo-labels </h3>
+                        <h3 class="title is-3" style="text-align: left;"> OT vs. Other Heuristics </h3>
                         <!-- Figure 2 -->
                         <img src="imgs/ablation_effect_ot.png" class="interpolation-image" alt="Effect of OT to infer pseudo-labels" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%;"/>
                         <p style="font-size: 125%">
-                            This analysis isolates the contribution of optimal transport in pseudo-label inference. By
-                            aligning trajectories in the video representation space, OT provides more informative labels
-                            for unlabeled trajectory pairs and improves reward learning quality.
+                            This analysis highlights the role of optimal transport in pseudo-label inference. We compare OT with heuristic methods that infer preferences solely from similarity. Unlike these heuristics, VOTP aggregates preferences from multiple labeled trajectory pairs, weighting each contribution according to the relative alignment strengths computed by the OT plan to produce more reliable pseudo-labels.
                         </p>
 
-                        <h3 class="title is-3" style="text-align: left;"> Comparison with various trajectory encoders </h3>
+                        <h3 class="title is-3" style="text-align: left;"> Ablation on Different Trajectory Encoders </h3>
                         <!-- Figure 3 -->
-                        <img src="imgs/comparison_vifm.png" class="interpolation-image" alt="Comparison with various trajectory encoders" style="display: block; margin-left: auto; margin-right: auto; max-width: 50%;"/>
+                        <img src="imgs/comparison_vifm.png" class="interpolation-image" alt="Comparison with various trajectory encoders" style="display: block; margin-left: auto; margin-right: auto; max-width: 80%;"/>
                         <p style="font-size: 125%">
-                            We evaluate how different trajectory encoders affect preference propagation and downstream
-                            policy learning. Strong video representations help VOTP capture task progress more robustly
-                            than encoders that are less aligned with temporal visual behavior.
+                            We find that Video Foundation Models generally outperform Image Foundation Models. This improvement highlights the advantage of video representations, which capture temporal dynamics and subtle motion cues to provide richer trajectory representations. These cues are crucial for distinguishing behavioral differences when inferring preferences.
                         </p>
 
-                        <h3 class="title is-3" style="text-align: left;"> Comparison along the Preference Feedback Number </h3>
+                        <h3 class="title is-3" style="text-align: left;"> Effect of the Number of Initial Labels </h3>
                         <!-- Figure 4 -->
                         <img src="imgs/comparison_feedback_number.png" class="interpolation-image" alt="Comparison along the preference feedback number" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%;"/>
                         <p style="font-size: 125%">
-                            We study performance as the number of human preference labels changes. VOTP is designed for
-                            feedback efficiency, and the comparison highlights its ability to maintain strong performance
-                            even when only a small number of labeled trajectory pairs is available.
+                            Performance generally improves as the number of initial labels increases. Notably, on the door-open task, VOTP trained with only 10 labels outperforms a policy trained with ground-truth rewards.
                         </p>
 
-                        <h3 class="title is-3" style="text-align: left;"> Pearson correlation between learned rewards and GT rewards </h3>
+                        <h3 class="title is-3" style="text-align: left;"> Scatter Plots of Estimated Rewards </h3>
                         <!-- Figure 6, 17 -->
                         <img src="imgs/comparison_correlation_1.png" class="interpolation-image" alt="Pearson correlation between learned rewards and GT rewards (1)" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%;"/>
                         <img src="imgs/comparison_correlation_2.png" class="interpolation-image" alt="Pearson correlation between learned rewards and GT rewards (2)" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%;"/>
                         <p style="font-size: 125%">
-                            We measure the Pearson correlation between learned rewards and ground-truth rewards to assess
-                            whether the reward model captures true task progress. Higher correlation indicates that VOTP
-                            learns reward signals that better reflect the underlying objective.
+                            The strong Pearson correlation between the estimated and ground-truth rewards demonstrates that VOTP effectively leverages unlabeled data to learn a more accurate reward model. This improved reward quality explains VOTP's substantial performance gains over P-IQL, which relies solely on labeled data.
                         </p>
 
-                        <h3 class="title is-3" style="text-align: left;"> Visualization of learned reward </h3>
+                        <h3 class="title is-3" style="text-align: left;"> Estimated Rewards on Real-World Tasks</h3>
                         <!-- Figure 14 -->
-                        <img src="imgs/learned_reward.png" class="interpolation-image" alt="Visualization of learned reward" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%;"/>
+                        <h4 class="title is-5" style="text-align: left; margin-bottom: 0.5rem;">Lift Banana</h4>
+                        <img src="imgs/learned_reward_pickup_banana.png" class="interpolation-image" alt="Learned reward on the Lift Banana task" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%;"/>
+                        <h4 class="title is-5" style="text-align: left; margin-bottom: 0.5rem; margin-top: 1.5rem;">Drawer Open</h4>
+                        <img src="imgs/learned_reward_drawer_open.png" class="interpolation-image" alt="Learned reward on the Drawer Open task" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%;"/>
                         <p style="font-size: 125%">
-                            We visualize the learned reward along representative trajectories. The reward profiles show
-                            whether the model assigns increasing or meaningful reward as the agent completes task-relevant
-                            behaviors.
+                            We visualize the learned rewards along successful and failed trajectories. Although both methods correctly assign high rewards to successful behavior, P-IQL mistakenly assigns similarly high rewards to failed trajectories. In contrast, VOTP learns a much more discriminative reward function, clearly separating successful and failed behaviors.
                         </p>
                     </div>
                 </div>
@@ -269,71 +261,12 @@
         <div class="rows">
             <div class="rows is-centered ">
                 <div class="row is-full-width">
-                    <h2 class="title is-2"><span class="dvima">Qualitative Rollouts</span></h2>
+                    <h2 class="title is-2"><span class="dvima">Qualitative Rollouts on Real-World Environments</span></h2>
                     <div class="content has-text-justified">
-                        <p style="font-size: 125%">
-                            Below we show policies trained with the reward function learned by VOTP across simulated
-                            manipulation tasks and real-world robotic demonstrations.
-                        </p>
-
-                        <h3 class="title is-3"> Manipulation </h3>
-                        <div class="rollout-video-grid is-four">
-                            <div class="rollout-video-item">
-                                <video autoplay muted loop controls style="width: 100%; border-radius: 5px;">
-                                    <source src="videos/mw-door-open.mp4" type="video/mp4">
-                                </video>
-                                <p class="video-caption">Door Open</p>
-                            </div>
-                            <div class="rollout-video-item">
-                                <video autoplay muted loop controls style="width: 100%; border-radius: 5px;">
-                                    <source src="videos/mw-door-open.mp4" type="video/mp4">
-                                </video>
-                                <p class="video-caption">Drawer Open</p>
-                            </div>
-                            <div class="rollout-video-item">
-                                <video autoplay muted loop controls style="width: 100%; border-radius: 5px;">
-                                    <source src="videos/mw-door-open.mp4" type="video/mp4">
-                                </video>
-                                <p class="video-caption">Plate Slide</p>
-                            </div>
-                            <div class="rollout-video-item">
-                                <video autoplay muted loop controls style="width: 100%; border-radius: 5px;">
-                                    <source src="videos/mw-door-open.mp4" type="video/mp4">
-                                </video>
-                                <p class="video-caption">Sweep Into</p>
-                            </div>
-                        </div>
-
-                        <h3 class="title is-3"> Locomotion </h3>
-                        <div class="rollout-video-grid is-two">
-                            <div class="rollout-video-item">
-                                <video autoplay muted loop controls style="width: 100%; border-radius: 5px;">
-                                    <source src="videos/mw-door-open.mp4" type="video/mp4">
-                                </video>
-                                <p class="video-caption">Hop</p>
-                            </div>
-                            <div class="rollout-video-item">
-                                <video autoplay muted loop controls style="width: 100%; border-radius: 5px;">
-                                    <source src="videos/mw-door-open.mp4" type="video/mp4">
-                                </video>
-                                <p class="video-caption">Walker</p>
-                            </div>
-                        </div>
-
-                        <h3 class="title is-3"> Real Robotic Demo </h3>
-                        <div class="rollout-video-grid is-two">
-                            <div class="rollout-video-item">
-                                <video autoplay muted loop controls style="width: 100%; border-radius: 5px;">
-                                    <source src="videos/pickup-banana.mp4" type="video/mp4">
-                                </video>
-                                <p class="video-caption">Pickup Banana</p>
-                            </div>
-                            <div class="rollout-video-item">
-                                <video autoplay muted loop controls style="width: 100%; border-radius: 5px;">
-                                    <source src="videos/open-drawer.mp4" type="video/mp4">
-                                </video>
-                                <p class="video-caption">Drawer Open</p>
-                            </div>
+                        <div class="rollout-video-item">
+                            <video autoplay muted loop controls playsinline style="width: 100%; border-radius: 5px;">
+                                <source src="videos/VOTP.mp4" type="video/mp4">
+                            </video>
                         </div>
                     </div>
                 </div>
@@ -350,7 +283,7 @@
     <pre>@inproceedings{
     luu2026video,
     title={Video-Based Optimal Transport for Feedback-Efficient Offline Preference-Based Reinforcement Learning},
-    author={Tung M. Luu and Hwanhee Kim and Chang D. Yoo},
+    author={Tung M. Luu and Hwanhee Kim  and Younghwan Lee and Chang D. Yoo},
     booktitle={Forty-third International Conference on Machine Learning},
     year={2026},
     url={https://openreview.net/forum?id=G8LVO5easu}
