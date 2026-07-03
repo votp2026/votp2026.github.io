@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
     <link rel="stylesheet" href="./static/css/academicons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-    <link rel="stylesheet" href="./static/css/index.css?v=20260701-rollouts-six">
+    <link rel="stylesheet" href="./static/css/index.css?v=20260704-table-toggle2">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script defer src="./static/js/fontawesome.all.min.js"></script>
@@ -152,7 +152,7 @@
         <div class="rows">
             <div class="rows is-centered ">
                 <div class="row is-full-width">
-                    <h2 class="title is-2"> VOTP Method </h2>
+                    <h2 class="title is-2"> VOTP Overview </h2>
                     <div class="content has-text-justified">
                         <p style="font-size: 125%">
                             VOTP is a semi-supervised framework for offline preference-based RL that learns an
@@ -171,7 +171,7 @@
                             using the resulting transport plan to propagate preferences from labeled to unlabeled pairs through relative alignment strengths.
                             Training the reward model on both the human labels and these pseudo-labels substantially
                             reduces the amount of human supervision required. The learned reward is then used to optimize
-                            the policy with an off-the-shelf offline RL algorithm.
+                            the policy with an off-the-shelf offline RL algorithm (e.g., IQL).
                         </p>
                     </div>
                 </div>
@@ -196,8 +196,17 @@
                         </p>
 
                         <h3 class="title is-3" style="text-align: left;"> Comparison to Baselines </h3>
-                        <!-- Table 2 figure -->
-                        <img src="imgs/comparison_to_baselines.png" class="interpolation-image" alt="Comparison to baselines" style="display: block; margin-left: auto; margin-right: auto; max-width: 80%; margin-bottom: 30px;"/>
+                        <!-- Table 2 figure: toggle between summary bar chart and full table -->
+                        <div class="tabs is-toggle is-centered" id="table-chart-tabs">
+                            <ul>
+                                <li class="is-active" data-view="chart"><a>Summary Chart</a></li>
+                                <li data-view="table"><a>Full Table</a></li>
+                            </ul>
+                        </div>
+                        <div class="table-chart-stage">
+                            <img class="tc-view is-active" data-view="chart" src="imgs/comparison_to_baselines.png" alt="Comparison to baselines (summary bar chart)"/>
+                            <img class="tc-view" data-view="table" src="imgs/comparison_to_baselines_table.png" alt="Comparison to baselines (full table)"/>
+                        </div>
 
                         <p style="font-size: 125%">
                             We use IQL as the offline RL algorithm in VOTP. The results show that VOTP achieves strong
@@ -229,8 +238,24 @@
 
                         <h3 class="title is-3" style="text-align: left;"> Scatter Plots of Estimated Rewards </h3>
                         <!-- Figure 6, 17 -->
-                        <img src="imgs/comparison_correlation_1.png" class="interpolation-image" alt="Pearson correlation between learned rewards and GT rewards (1)" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%;"/>
-                        <img src="imgs/comparison_correlation_2.png" class="interpolation-image" alt="Pearson correlation between learned rewards and GT rewards (2)" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%;"/>
+                        <div class="columns is-multiline is-centered">
+                            <div class="column is-half">
+                                <img src="imgs/hopper-medium-replay-v2_pearsonr.png" class="interpolation-image" alt="Estimated vs. ground-truth reward on Hopper (medium-replay)" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%;"/>
+                                <p class="has-text-centered" style="margin-top: 0.5rem;"><strong>hopper-medium-replay-v2</strong></p>
+                            </div>
+                            <div class="column is-half">
+                                <img src="imgs/walker2d-medium-replay-v2_pearsonr.png" class="interpolation-image" alt="Estimated vs. ground-truth reward on Walker2d (medium-replay)" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%;"/>
+                                <p class="has-text-centered" style="margin-top: 0.5rem;"><strong>walker2d-medium-replay-v2</strong></p>
+                            </div>
+                            <div class="column is-half">
+                                <img src="imgs/mw_door-open-v2_pearsonr.png" class="interpolation-image" alt="Estimated vs. ground-truth reward on Door Open" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%;"/>
+                                <p class="has-text-centered" style="margin-top: 0.5rem;"><strong>door-open-v2</strong></p>
+                            </div>
+                            <div class="column is-half">
+                                <img src="imgs/mw_drawer-open-v2_pearsonr.png" class="interpolation-image" alt="Estimated vs. ground-truth reward on Drawer Open" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%;"/>
+                                <p class="has-text-centered" style="margin-top: 0.5rem;"><strong>drawer-open-v2</strong></p>
+                            </div>
+                        </div>
                         <p style="font-size: 125%">
                             The strong Pearson correlation between the estimated and ground-truth rewards demonstrates that VOTP effectively leverages unlabeled data to learn a more accurate reward model. This improved reward quality explains VOTP's substantial performance gains over P-IQL, which relies solely on labeled data.
                         </p>
@@ -242,8 +267,174 @@
                         <h4 class="title is-5" style="text-align: left; margin-bottom: 0.5rem; margin-top: 1.5rem;">Drawer Open</h4>
                         <img src="imgs/learned_reward_drawer_open.png" class="interpolation-image" alt="Learned reward on the Drawer Open task" style="display: block; margin-left: auto; margin-right: auto; max-width: 100%;"/>
                         <p style="font-size: 125%">
-                            We visualize the learned rewards along successful and failed trajectories. Although both methods correctly assign high rewards to successful behavior, P-IQL mistakenly assigns similarly high rewards to failed trajectories. In contrast, VOTP learns a much more discriminative reward function, clearly separating successful and failed behaviors.
+                            We visualize the learned rewards along successful and failed trajectories. Although both methods correctly assign appropriate rewards to successful behavior, P-IQL mistakenly assigns similarly high rewards to failed trajectories. In contrast, VOTP learns a much more discriminative rewards, clearly separating successful and failed behaviors.
                         </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Experimental demos: method vs. baseline per task -->
+<section class="section">
+    <div class="container is-max-widescreen">
+        <div class="rows">
+            <div class="rows is-centered ">
+                <div class="row is-full-width">
+                    <h2 class="title is-2"><span class="dvima">Experimental Demos</span></h2>
+                    <div class="content has-text-justified">
+                        <p style="font-size: 125%">
+                            We compare policies trained with <strong>VOTP</strong> against the <strong>P-IQL</strong>
+                            baseline on MetaWorld manipulation tasks under the same limited-feedback budget (For each
+                            task, use the <strong>&lt;</strong> / <strong>&gt;</strong> arrows to switch between VOTP and P-IQL).
+                        </p>
+                    </div>
+                    <h3 class="subtitle is-4 is-italic has-text-centered" style="margin-bottom: 30px;"> MetaWorld </h3>
+                    <div class="columns is-multiline is-centered">
+                        <!-- Door Open -->
+                        <div class="column is-one-quarter">
+                            <h4 class="title is-5 has-text-centered"> door-open-v2 </h4>
+                            <div class="gif-carousel" id="door-open-carousel">
+                                <div class="carousel-images">
+                                    <video class="active" data-label="VOTP" autoplay muted loop playsinline>
+                                        <source src="videos/experiment_demo/metaworld/votp/door-open.mp4" type="video/mp4">
+                                    </video>
+                                    <video data-label="P-IQL" autoplay muted loop playsinline>
+                                        <source src="videos/experiment_demo/metaworld/piql/door-open.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="carousel-nav">
+                                    <button class="prev-btn">&lt;</button>
+                                    <button class="next-btn">&gt;</button>
+                                </div>
+                                <p class="gif-label has-text-centered">VOTP</p>
+                                <div class="dots-container has-text-centered">
+                                    <span class="dot active" onclick="currentSlide('door-open-carousel', 0)"></span>
+                                    <span class="dot" onclick="currentSlide('door-open-carousel', 1)"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Drawer Open -->
+                        <div class="column is-one-quarter">
+                            <h4 class="title is-5 has-text-centered"> drawer-open-v2 </h4>
+                            <div class="gif-carousel" id="drawer-open-carousel">
+                                <div class="carousel-images">
+                                    <video class="active" data-label="VOTP" autoplay muted loop playsinline>
+                                        <source src="videos/experiment_demo/metaworld/votp/drawer-open.mp4" type="video/mp4">
+                                    </video>
+                                    <video data-label="P-IQL" autoplay muted loop playsinline>
+                                        <source src="videos/experiment_demo/metaworld/piql/drawer-open.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="carousel-nav">
+                                    <button class="prev-btn">&lt;</button>
+                                    <button class="next-btn">&gt;</button>
+                                </div>
+                                <p class="gif-label has-text-centered">VOTP</p>
+                                <div class="dots-container has-text-centered">
+                                    <span class="dot active" onclick="currentSlide('drawer-open-carousel', 0)"></span>
+                                    <span class="dot" onclick="currentSlide('drawer-open-carousel', 1)"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Plate Slide -->
+                        <div class="column is-one-quarter">
+                            <h4 class="title is-5 has-text-centered"> plate-slide-v2 </h4>
+                            <div class="gif-carousel" id="plate-slide-carousel">
+                                <div class="carousel-images">
+                                    <video class="active" data-label="VOTP" autoplay muted loop playsinline>
+                                        <source src="videos/experiment_demo/metaworld/votp/plate-slide.mp4" type="video/mp4">
+                                    </video>
+                                    <video data-label="P-IQL" autoplay muted loop playsinline>
+                                        <source src="videos/experiment_demo/metaworld/piql/plate-slide.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="carousel-nav">
+                                    <button class="prev-btn">&lt;</button>
+                                    <button class="next-btn">&gt;</button>
+                                </div>
+                                <p class="gif-label has-text-centered">VOTP</p>
+                                <div class="dots-container has-text-centered">
+                                    <span class="dot active" onclick="currentSlide('plate-slide-carousel', 0)"></span>
+                                    <span class="dot" onclick="currentSlide('plate-slide-carousel', 1)"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Sweep Into -->
+                        <div class="column is-one-quarter">
+                            <h4 class="title is-5 has-text-centered"> sweep-into-v2 </h4>
+                            <div class="gif-carousel" id="sweep-into-carousel">
+                                <div class="carousel-images">
+                                    <video class="active" data-label="VOTP" autoplay muted loop playsinline>
+                                        <source src="videos/experiment_demo/metaworld/votp/sweep-into.mp4" type="video/mp4">
+                                    </video>
+                                    <video data-label="P-IQL" autoplay muted loop playsinline>
+                                        <source src="videos/experiment_demo/metaworld/piql/sweep-into.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="carousel-nav">
+                                    <button class="prev-btn">&lt;</button>
+                                    <button class="next-btn">&gt;</button>
+                                </div>
+                                <p class="gif-label has-text-centered">VOTP</p>
+                                <div class="dots-container has-text-centered">
+                                    <span class="dot active" onclick="currentSlide('sweep-into-carousel', 0)"></span>
+                                    <span class="dot" onclick="currentSlide('sweep-into-carousel', 1)"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="subtitle is-4 is-italic has-text-centered" style="margin-top: 30px; margin-bottom: 30px;"> Gym D4RL </h3>
+                    <div class="columns is-multiline is-centered">
+                        <!-- Hopper -->
+                        <div class="column is-one-quarter">
+                            <h4 class="title is-5 has-text-centered"> hopper-medium-replay-v2 </h4>
+                            <div class="gif-carousel" id="hopper-carousel">
+                                <div class="carousel-images">
+                                    <video class="active" data-label="VOTP" autoplay muted loop playsinline>
+                                        <source src="videos/experiment_demo/loco/votp/hopper-medium-replay-v2_ep1.mp4" type="video/mp4">
+                                    </video>
+                                    <video data-label="P-IQL" autoplay muted loop playsinline>
+                                        <source src="videos/experiment_demo/loco/piql/hopper-medium-replay-v2_ep1_clip_2x.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="carousel-nav">
+                                    <button class="prev-btn">&lt;</button>
+                                    <button class="next-btn">&gt;</button>
+                                </div>
+                                <p class="gif-label has-text-centered">VOTP</p>
+                                <div class="dots-container has-text-centered">
+                                    <span class="dot active" onclick="currentSlide('hopper-carousel', 0)"></span>
+                                    <span class="dot" onclick="currentSlide('hopper-carousel', 1)"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Walker2d -->
+                        <div class="column is-one-quarter">
+                            <h4 class="title is-5 has-text-centered"> walker2d-medium-replay-v2 </h4>
+                            <div class="gif-carousel" id="walker2d-carousel">
+                                <div class="carousel-images">
+                                    <video class="active" data-label="VOTP" autoplay muted loop playsinline>
+                                        <source src="videos/experiment_demo/loco/votp/walker2d-medium-replay-v2_ep1.mp4" type="video/mp4">
+                                    </video>
+                                    <video data-label="P-IQL" autoplay muted loop playsinline>
+                                        <source src="videos/experiment_demo/loco/piql/walker2d-medium-replay-v2_ep1.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="carousel-nav">
+                                    <button class="prev-btn">&lt;</button>
+                                    <button class="next-btn">&gt;</button>
+                                </div>
+                                <p class="gif-label has-text-centered">VOTP</p>
+                                <div class="dots-container has-text-centered">
+                                    <span class="dot active" onclick="currentSlide('walker2d-carousel', 0)"></span>
+                                    <span class="dot" onclick="currentSlide('walker2d-carousel', 1)"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -258,12 +449,56 @@
         <div class="rows">
             <div class="rows is-centered ">
                 <div class="row is-full-width">
-                    <h2 class="title is-2"><span class="dvima">Qualitative Rollouts on Real-World Environments</span></h2>
+                    <h2 class="title is-2"><span class="dvima">Real-world Deployment</span></h2>
                     <div class="content has-text-justified">
-                        <div class="rollout-video-item">
-                            <video autoplay muted loop controls playsinline style="width: 100%; border-radius: 5px;">
-                                <source src="videos/VOTP.mp4" type="video/mp4">
-                            </video>
+                        <p style="font-size: 125%">
+                            We deploy VOTP on a real Sawyer robot and compare it with the P-IQL baseline on two
+                            manipulation tasks. For each task, the top row shows VOTP rollouts and the bottom row shows
+                            P-IQL rollouts.
+                        </p>
+                    </div>
+
+                    <h3 class="subtitle is-4 is-italic has-text-centered" style="margin-top: 20px; margin-bottom: 40px;">
+                        Lift Banana
+                    </h3>
+                    <div class="columns is-multiline is-centered realworld-grid">
+                        <div class="column is-half">
+                            <img src="videos/experiment_demo/realworld-lift-banana/votp/sawyer-pickup-banana-1.gif" alt="Lift Banana VOTP" style="width: 100%; border-radius: 5px; border: 1px solid #ddd;"/>
+                            <h4 class="title is-6 has-text-centered" style="margin-top: 10px;">VOTP</h4>
+                        </div>
+                        <div class="column is-half">
+                            <img src="videos/experiment_demo/realworld-lift-banana/votp/sawyer-pickup-banana-7.gif" alt="Lift Banana VOTP" style="width: 100%; border-radius: 5px; border: 1px solid #ddd;"/>
+                            <h4 class="title is-6 has-text-centered" style="margin-top: 10px;">VOTP</h4>
+                        </div>
+                        <div class="column is-half">
+                            <img src="videos/experiment_demo/realworld-lift-banana/piql/sawyer-pickup-banana-1.gif" alt="Lift Banana P-IQL" style="width: 100%; border-radius: 5px; border: 1px solid #ddd;"/>
+                            <h4 class="title is-6 has-text-centered" style="margin-top: 10px;">P-IQL</h4>
+                        </div>
+                        <div class="column is-half">
+                            <img src="videos/experiment_demo/realworld-lift-banana/piql/sawyer-pickup-banana-7.gif" alt="Lift Banana P-IQL" style="width: 100%; border-radius: 5px; border: 1px solid #ddd;"/>
+                            <h4 class="title is-6 has-text-centered" style="margin-top: 10px;">P-IQL</h4>
+                        </div>
+                    </div>
+
+                    <h3 class="subtitle is-4 is-italic has-text-centered" style="margin-top: 40px; margin-bottom: 40px;">
+                        Drawer Open
+                    </h3>
+                    <div class="columns is-multiline is-centered realworld-grid">
+                        <div class="column is-half">
+                            <img src="videos/experiment_demo/realworld-drawer-open/votp/sawyer-drawer-open-3.gif" alt="Drawer Open VOTP" style="width: 100%; border-radius: 5px; border: 1px solid #ddd;"/>
+                            <h4 class="title is-6 has-text-centered" style="margin-top: 10px;">VOTP</h4>
+                        </div>
+                        <div class="column is-half">
+                            <img src="videos/experiment_demo/realworld-drawer-open/votp/sawyer-drawer-open-6.gif" alt="Drawer Open VOTP" style="width: 100%; border-radius: 5px; border: 1px solid #ddd;"/>
+                            <h4 class="title is-6 has-text-centered" style="margin-top: 10px;">VOTP</h4>
+                        </div>
+                        <div class="column is-half">
+                            <img src="videos/experiment_demo/realworld-drawer-open/piql/sawyer-drawer-open-3.gif" alt="Drawer Open P-IQL" style="width: 100%; border-radius: 5px; border: 1px solid #ddd;"/>
+                            <h4 class="title is-6 has-text-centered" style="margin-top: 10px;">P-IQL</h4>
+                        </div>
+                        <div class="column is-half">
+                            <img src="videos/experiment_demo/realworld-drawer-open/piql/sawyer-drawer-open-6.gif" alt="Drawer Open P-IQL" style="width: 100%; border-radius: 5px; border: 1px solid #ddd;"/>
+                            <h4 class="title is-6 has-text-centered" style="margin-top: 10px;">P-IQL</h4>
                         </div>
                     </div>
                 </div>

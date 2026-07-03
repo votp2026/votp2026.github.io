@@ -72,3 +72,58 @@ $(document).ready(function() {
     document.getElementById("multi-task-result-video").playbackRate = 2.0;
 })
 
+// -------- Experimental Demos: per-task method/baseline carousel (mimics PRIMT) --------
+function demoShowSlide(carouselId, n) {
+    var carousel = document.getElementById(carouselId);
+    var media = carousel.getElementsByClassName("carousel-images")[0].querySelectorAll("video, img");
+    var dots = carousel.getElementsByClassName("dots-container")[0].getElementsByClassName("dot");
+    var label = carousel.getElementsByClassName("gif-label")[0];
+
+    // Wrap-around
+    if (n >= media.length) { n = 0; }
+    if (n < 0) { n = media.length - 1; }
+
+    for (var i = 0; i < media.length; i++) {
+        media[i].classList.remove('active');
+        dots[i].classList.remove('active');
+    }
+
+    media[n].classList.add('active');
+    dots[n].classList.add('active');
+    if (label) { label.textContent = media[n].dataset.label; }
+    if (media[n].tagName === 'VIDEO') {
+        try { media[n].currentTime = 0; media[n].play(); } catch (e) {}
+    }
+    carousel.dataset.currentSlide = n;
+}
+
+function demoPlusSlides(carouselId, n) {
+    var carousel = document.getElementById(carouselId);
+    var current = parseInt(carousel.dataset.currentSlide || 0);
+    demoShowSlide(carouselId, current + n);
+}
+
+function currentSlide(carouselId, n) {
+    demoShowSlide(carouselId, n);
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll('.gif-carousel').forEach(function(carousel) {
+        carousel.dataset.currentSlide = 0;
+        demoShowSlide(carousel.id, 0);
+        carousel.querySelector('.prev-btn').addEventListener('click', function() { demoPlusSlides(carousel.id, -1); });
+        carousel.querySelector('.next-btn').addEventListener('click', function() { demoPlusSlides(carousel.id, 1); });
+    });
+});
+
+
+// -------- Table <-> Chart toggle --------
+$(function () {
+    $('#table-chart-tabs li').on('click', function () {
+        var v = $(this).data('view');
+        $('#table-chart-tabs li').removeClass('is-active');
+        $(this).addClass('is-active');
+        $('.table-chart-stage .tc-view').removeClass('is-active');
+        $('.table-chart-stage .tc-view[data-view="' + v + '"]').addClass('is-active');
+    });
+});

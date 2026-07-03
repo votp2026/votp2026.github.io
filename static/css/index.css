@@ -300,3 +300,133 @@ body {
         max-width: 100%;
     }
 }
+
+/* -------- Experimental Demos: per-task method/baseline carousel (mimics PRIMT) -------- */
+.gif-carousel {
+    position: relative;
+    margin: 0 auto 10px auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    max-width: 480px;
+}
+
+.gif-carousel .carousel-images {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.gif-carousel .carousel-images video,
+.gif-carousel .carousel-images img {
+    width: 100%;
+    display: none;
+    border: none;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.gif-carousel .carousel-images video.active,
+.gif-carousel .carousel-images img.active {
+    display: block;
+}
+
+.gif-carousel .carousel-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    z-index: 10;
+    padding: 0 5px;
+}
+
+.gif-carousel .carousel-nav button {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 1.2em;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.gif-carousel .carousel-nav button:hover {
+    opacity: 1;
+}
+
+.gif-carousel .gif-label {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #333;
+    font-size: 1em;
+}
+
+.gif-carousel .dots-container {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.gif-carousel .dot {
+    height: 10px;
+    width: 10px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+    cursor: pointer;
+}
+
+.gif-carousel .dot.active {
+    background-color: #007bff;
+}
+
+.gif-carousel video,
+.gif-carousel img {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+}
+
+/* -------- Real-world Deployment -------- */
+/* Cap the whole row's width so the two clips sit closer together.
+   SMALLER max-width  ==> LESS horizontal space between the two videos. */
+.realworld-grid {
+    max-width: 820px;   /* <-- LARGER = more space between the two videos; SMALLER = less */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Size of each clip. */
+.realworld-grid .column img {
+    display: block;
+    max-width: 320px;   /* <-- change this to make the real-world clips bigger/smaller */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* -------- Table <-> Chart toggle (crossfade) -------- */
+.table-chart-stage {
+    position: relative;
+    max-width: 90%;              /* overall figure width; adjust as needed */
+    margin: 0 auto 30px auto;
+    aspect-ratio: 1927 / 630;    /* taller image's w/h -> fixed height, no jump on switch */
+}
+.table-chart-stage .tc-view {
+    position: absolute;          /* both views fill the stage, out of flow */
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;         /* preserve each image's ratio inside the fixed stage */
+    opacity: 0;
+    transition: opacity .35s ease;
+    pointer-events: none;
+}
+.table-chart-stage .tc-view.is-active {
+    opacity: 1;
+    pointer-events: auto;
+}
