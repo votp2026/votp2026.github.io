@@ -92,7 +92,20 @@ function demoShowSlide(carouselId, n) {
     dots[n].classList.add('active');
     if (label) { label.textContent = media[n].dataset.label; }
     if (media[n].tagName === 'VIDEO') {
-        try { media[n].currentTime = 0; media[n].play(); } catch (e) {}
+        var v = media[n];
+        // Only rewind if the video already has data; seeking an unloaded video
+        // aborts the play() promise below and leaves it paused.
+        if (v.readyState >= 2) { try { v.currentTime = 0; } catch (e) {} }
+        var p = v.play();
+        if (p && typeof p.catch === 'function') {
+            p.catch(function () {
+                // AbortError (e.g. still loading after being display:none) -> retry once it can play.
+                v.addEventListener('canplay', function once() {
+                    v.removeEventListener('canplay', once);
+                    v.play().catch(function () {});
+                });
+            });
+        }
     }
     carousel.dataset.currentSlide = n;
 }

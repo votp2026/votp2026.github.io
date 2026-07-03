@@ -1,0 +1,20 @@
+# OS / filesystem junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Windows "mark of the web" metadata (created for downloaded files on NTFS)
+*:Zone.Identifier
+
+# Editors / IDEs
+.idea/
+.vscode/
+*.swp
+*~
+
+# Local reference material / cloned repos (not part of the site)
+references/
+
+# Python (local dev server / scripts)
+__pycache__/
+*.pyc
